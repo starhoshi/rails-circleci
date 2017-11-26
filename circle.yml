@@ -1,0 +1,9 @@
+deployment:
+  production:
+    branch: master
+    commands:
+      - heroku maintenance:on --app taddol
+      - git push git@heroku.com:rails-circleci.git $CIRCLE_SHA1:refs/heads/master
+      - heroku run 'rake db:migrate; rake db:seed_fu' --app taddol
+      - heroku maintenance:off --app taddol
+
